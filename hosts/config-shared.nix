@@ -8,9 +8,7 @@ in
     inputs.home-manager.nixosModules.default
   ];
 
-  ########################################
   ## Nix settings
-  ########################################
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -21,9 +19,7 @@ in
     allowUnsupportedSystem = true;
   };
 
-  ########################################
   ## User + Shell
-  ########################################
   users.defaultUserShell = pkgs.fish;
   programs.fish.enable = true;
 
@@ -34,9 +30,7 @@ in
     shell = pkgs.fish;
   };
 
-  ########################################
   ## Time + Locale
-  ########################################
   time.timeZone = "America/Vancouver";
 
   i18n = {
@@ -55,9 +49,7 @@ in
     };
   };
 
-  ########################################
   ## Services
-  ########################################
   services = {
     pipewire = {
       enable = true;
@@ -81,9 +73,7 @@ in
     };
   };
 
-  ########################################
   ## Security
-  ########################################
   security = {
     doas = {
       enable = true;
@@ -93,9 +83,7 @@ in
     rtkit.enable = true;
   };
 
-  ########################################
   ## Fonts
-  ########################################
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     roboto
@@ -104,9 +92,7 @@ in
     openmoji-color
   ];
 
-  ########################################
   ## Programs
-  ########################################
   programs = {
     nh = {
       enable = true;
@@ -138,9 +124,7 @@ in
     gamemode.enable = true;
   };
 
-  ########################################
   ## Hardware + Environment
-  ########################################
   hardware.bluetooth.enable = true;
 
   environment = {
@@ -159,17 +143,13 @@ in
     };
   };
 
-  ########################################
   ## Networking
-  ########################################
   networking = {
     networkmanager.enable = true;
     firewall.enable = true;
   };
 
-  ########################################
   ## System Packages
-  ########################################
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -182,6 +162,7 @@ in
     eza
     btop
     superfile
+    starship
 
     # File manager
     thunar
@@ -194,9 +175,8 @@ in
     nmap
   ];
 
-  ########################################
   ## Kernel Tweaks
-  ########################################
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernel.sysctl = {
     "fs.file-max" = 524288;
   };

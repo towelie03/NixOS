@@ -53,6 +53,9 @@ in
   services.power-profiles-daemon.enable = true;
   powerManagement.cpuFreqGovernor = "schedutil";
 
+  ## CPU microcode (Intel)
+  hardware.cpu.intel.updateMicrocode = true;
+
   ## User
   users.users.${uname} = {
     isNormalUser = true;
