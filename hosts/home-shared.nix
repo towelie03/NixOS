@@ -42,7 +42,6 @@
     thunar-thumbnailer
 
     # Per-user dev / tools
-    kanata
     wallust
 
     # Misc

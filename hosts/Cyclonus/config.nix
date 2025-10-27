@@ -1,13 +1,8 @@
-{ config, pkgs, inputs, system, uname, ... }:
+{ config, pkgs, inputs, system, username, ... }:
 
-let
-  # Import shared configuration
-  sharedConfig = import ./config-shared.nix { inherit config pkgs inputs system uname; };
-in
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./../configuration-shared.nix
+    ./../config-shared.nix
     ./hardware-configuration.nix
   ];
 
@@ -32,7 +27,7 @@ in
     settings = {
       default_session = {
         command = "${pkgs.niri}/bin/niri-session";
-        user = uname;
+        user = username;
       };
     };
   };
@@ -57,7 +52,7 @@ in
   hardware.cpu.intel.updateMicrocode = true;
 
   ## User
-  users.users.${uname} = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" ];
   };
@@ -73,8 +68,8 @@ in
 
   ## Home Manager integration
   home-manager = {
-    extraSpecialArgs = { inherit inputs system uname; };
-    users.${uname} = import ./home.nix; # should include home-shared.nix
+    extraSpecialArgs = { inherit inputs system username; };
+    users.${username} = import ./home.nix;
   };
 
   ## Security
@@ -84,7 +79,7 @@ in
     wheelNeedsPassword = false;
     extraRules = [
       {
-        users = [ uname ];
+        users = [ username ];
         keepEnv = true;
         persist = true;
       }
@@ -103,4 +98,3 @@ in
     GDK_BACKEND = "wayland";
   };
 }
-
