@@ -52,7 +52,7 @@
       nixosConfigurations."${host}" = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit self inputs system host uname; };
         modules = [
-          ./hosts/"${uname}"/configuration.nix
+          ./hosts/${uname}/configuration.nix
 
           # Enable home-manager module for system users
           home-manager.nixosModules.home-manager
@@ -61,7 +61,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${uname} = import ./hosts/"${uname}"/home.nix;
+              users.${uname} = import ./hosts/${uname}/home.nix;
               backupFileExtension = "bck";
             };
           }
