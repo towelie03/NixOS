@@ -53,7 +53,7 @@
         specialArgs = { inherit self inputs system host uname; };
         modules = [
           ./hosts/${host}/config.nix
-          ./hosts/${host}/hardware-configuration.nix
+          #./hosts/${host}/hardware-configuration.nix
           
           # Enable home-manager module for system users
           home-manager.nixosModules.home-manager
