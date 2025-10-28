@@ -3,9 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixvim.url = "github:nix-community/nixvim";
+    home-manager.url = "github:nix-community/home-manager";
+    nur.url = "github:nix-community/NUR";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    matugen.url = "github:InioX/matugen";
+
+    stylix = {
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,14 +31,9 @@
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
-    
+
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -42,29 +43,34 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
-  let
+ outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, quickshell, niri, dankMaterialShell, ... }@inputs:
+{
+  nixosConfigurations.default = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    host = "Cyclonus";
-    uname = "gwimbly";
-  in {
-    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit self inputs system host uname; };
-      modules = [
-        ./hosts/${host}/config.nix
-        home-manager.nixosModules.home-manager
+    specialArgs = { inherit self inputs; };
+    modules = [
+      ./hosts/default/configuration.nix
+      inputs.stylix.nixosModules.stylix
+      inputs.home-manager.nixosModules.default
+      #chaotic.nixosModules.default   
+      inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+      inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+      inputs.dankMaterialShell.nixosModules.greeter
 
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.${uname} = import ./hosts/${host}/home.nix;
-            backupFileExtension = "bck";
-          };
-        }
-      ];
-    };
+      ({ pkgs, ... }: {
+        environment.systemPackages = [
+          (quickshell.packages.${pkgs.system}.default.override {
+            withJemalloc = true;
+            withQtSvg = true;
+            withWayland = true;
+            withPipewire = true;
+            withPam = true;
+            withHyprland = false;
+            withNiri = true;
+          })
+        ];
+      })
+    ];
   };
-}
+};
 
