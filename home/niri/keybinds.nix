@@ -10,8 +10,8 @@ in {
     "super+Shift+Slash".action = show-hotkey-overlay;
 
     # Terminals
-    "control+Return".action = spawn apps.alacritty;
-    "control+shift+Return".action = spawn apps.kitty;
+    "control+Return".action = spawn apps.ghostty;
+    "control+shift+Return".action = spawn apps.alacritty;
 
     # Apps
     "super+b".action = spawn apps.browser;
