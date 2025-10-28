@@ -3,7 +3,7 @@
 {
   imports = [
     ./../config-shared.nix
-    ./hardware-config.nix
+    ./hardware-configuration.nix
   ];
 
   ## Bootloader
