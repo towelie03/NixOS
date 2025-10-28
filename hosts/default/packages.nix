@@ -22,8 +22,8 @@ with pkgs;
   adw-gtk3
 
   # Terminal
-  ghostty
-  alacritty
+  #ghostty
+  #alacritty
 
   # TUI
   btop
