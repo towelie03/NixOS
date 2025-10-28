@@ -61,7 +61,7 @@ in {
     "super+w".action = toggle-column-tabbed-display;
 
     # Screenshots
-    "super+shift+print".action = screenshot;
+    #"super+shift+print".action = screenshot;
     #"Ctrl+print".action = screenshot-screen;
     #"alt+print".action = screenshot-window; # optional
   };
