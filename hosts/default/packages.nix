@@ -21,6 +21,10 @@ with pkgs;
   thunar-gtk3
   adw-gtk3
 
+  # Terminal
+  ghostty
+  alacritty
+
   # TUI
   btop
 
