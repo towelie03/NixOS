@@ -11,7 +11,6 @@
     "${self}/system/xdg.nix"
     "${self}/system/environment.nix"
     "${self}/system/packages.nix"
-    inputs.dankMaterialShell.nixosModules.greeter
   ];
 
   nixpkgs.overlays = [
@@ -75,6 +74,13 @@
     kernelModules = [ "i2c-dev" ];
     initrd.availableKernelModules = [ "i2c-dev" ];
   };
+  
+  programs.dankMaterialShell.greeter = {
+      enable = true;
+      compositor.name = "niri";
+      configHome = "/home/Cyclonus";
+  };
+
 
   services.udev.packages = [ pkgs.rwedid ];
 
@@ -148,11 +154,6 @@
     gvfs.enable = true;
     tumbler.enable = true;
 
-    programs.dankMaterialShell.greeter = {
-      enable = true;
-      compositor.name = "niri";
-      configHome = "/home/Cyclonus";
-    };
   };
 
   xdg.portal.enable = true;

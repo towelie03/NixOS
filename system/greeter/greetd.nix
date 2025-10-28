@@ -1,15 +1,6 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
-  programs.dankMaterialShell.greeter = {
-    enable = true;
-    compositor.name = "niri"; 
-    configHome = "/home/gwimbly";  
-  };
+{ config, pkgs, ... }:
 
+{
   services.greetd = {
     enable = true;
 
@@ -17,14 +8,13 @@
       terminal.vt = 1;
 
       default_session = {
-        user = "greeter";
-        command =
-          "${inputs.dankMaterialShell.packages.${pkgs.system}.greeter}/bin/dms-greeter";
+        user = "Cyclonus";
+        command = "${pkgs.niri}/bin/niri-session";
       };
     };
   };
 
-  # ✅ stop shutdown hang + proper TTY + login session
+  # Fix TTY reset issues
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
