@@ -12,8 +12,6 @@
     pavucontrol
     pulseaudio
     arrpc
-    swww
-    swaybg
     nodePackages.prettier
     xwayland
     ffmpeg
