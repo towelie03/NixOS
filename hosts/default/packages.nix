@@ -15,7 +15,7 @@ with pkgs;
   steamcmd
   steam
   openrgb-with-all-plugins
-  thuanr
+  thunar
   file-roller
   obsidian
   thunar-gtk3
