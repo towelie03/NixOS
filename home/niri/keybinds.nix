@@ -7,7 +7,7 @@ in {
   programs.niri.settings.binds = with config.lib.niri.actions; {
 
     # Show Niri’s built-in hotkey overlay
-    "Mod+Shift+Slash".action = show-hotkey-overlay;
+    "super+Shift+Slash".action = show-hotkey-overlay;
 
     # Terminals
     "control+Return".action = spawn apps.alacritty;
