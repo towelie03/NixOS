@@ -17,7 +17,7 @@ with pkgs;
   openrgb-with-all-plugins
   file-roller
   obsidian
-  thunar-gtk3
+  xfce.thunar
   adw-gtk3
 
   # Terminal
