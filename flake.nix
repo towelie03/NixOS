@@ -9,7 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # DankMaterialShell and dependencies
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,30 +43,28 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      host = "Cyclonus";
-      uname = "gwimbly";
-    in {
-      nixosConfigurations."${host}" = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit self inputs system host uname; };
-        modules = [
-          ./hosts/${host}/config.nix
-          #./hosts/${host}/hardware-configuration.nix
-          
-          # Enable home-manager module for system users
-          home-manager.nixosModules.home-manager
+  let
+    system = "x86_64-linux";
+    host = "Cyclonus";
+    uname = "gwimbly";
+  in {
+    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit self inputs system host uname; };
+      modules = [
+        ./hosts/${host}/config.nix
+        home-manager.nixosModules.home-manager
 
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${uname} = import ./hosts/${host}/home.nix;
-              backupFileExtension = "bck";
-            };
-          }
-        ];
-      };
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.${uname} = import ./hosts/${host}/home.nix;
+            backupFileExtension = "bck";
+          };
+        }
+      ];
     };
+  };
 }
 
