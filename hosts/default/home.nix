@@ -21,8 +21,10 @@ in
     ../../home/programs/brave.nix
 
     ../../system/shell/fish.nix
-
-    inputs.spicetify-nix.homeManagerModules.default
+    
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+    inputs.dankMaterialShell.nixosModules.greeter
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
