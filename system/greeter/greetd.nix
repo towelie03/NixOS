@@ -1,42 +1,33 @@
 {
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
-
-{
   programs.dankMaterialShell.greeter = {
     enable = true;
-    compositor.name = "niri";  # Choose between: "niri" | "hyprland"
-    configHome = "/home/gwimbly"; # optional
+    compositor.name = "niri";   # Greeter runs under Niri
+    configHome = "/home/gwimbly";  # Replace with your username
   };
 
   services.greetd = {
     enable = true;
 
     settings = {
+      # TTY where greetd appears
+      terminal.vt = 1;
+
       default_session = {
         user = "greeter";
-        # Launch the DankMaterialShell greeter session
-        command = ''
-          ${pkgs.dms-cli}/bin/dms-greeter --compositor niri
-        '';
+        command = "${pkgs.dms-cli}/bin/dms-greeter --command niri";
       };
     };
   };
 
-  systemd = {
-    extraConfig = "DefaultTimeoutStopSec=10s";
-    services.greetd.serviceConfig = {
-      Type = "idle";
-      StandardInput = "tty";
-      StandardOutput = "tty";
-      StandardError = "journal";
-      TTYReset = true;
-      TTYVHangup = true;
-      TTYVTDisallocate = true;
-    };
+  # Required to prevent shutdown hang & ensure TTY works properly
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
   };
 }
 
