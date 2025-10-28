@@ -5,7 +5,7 @@
   ];
 
   home = {
-    file.".config/niri/config.kdl".source = ../../../resources/dotfiles/niri/config.kdl;
+    file.".config/niri/config.kdl".source = ../../../system/dotfiles/niri/config.kdl;
     packages = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
