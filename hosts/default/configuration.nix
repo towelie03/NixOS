@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    # modular files for apps and environment
     "${self}/system/greeter/greetd.nix"
     "${self}/system/programs/steam.nix"
     "${self}/system/programs/lact.nix"
@@ -39,7 +38,7 @@
     wheelNeedsPassword = false;
     extraRules = [
       {
-        users = [ uname ];
+        users = [ "Cyclonus" ];
         keepEnv = true;
         persist = true;
       }
@@ -73,7 +72,7 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_zen;
-    kernelModules = [ i2c-dev" ];
+    kernelModules = [ "i2c-dev" ];
     initrd.availableKernelModules = [ "i2c-dev" ];
   };
 
@@ -96,13 +95,11 @@
 
   networking = {
     hostName = "Cyclonus";
-    networkmanager.enable = true;
-    wireless = {
-      enable = false;
-      userControlled.enable = false;
-    };
+    wireless.enable = false;
+    wireless.userControlled.enable = false;
 
     networkmanager = {
+      enable = true;
       wifi.backend = "wpa_supplicant";
       wifi.powersave = false;
     };
@@ -132,7 +129,7 @@
     greetd.enable = true;
     greetd.settings.default_session = {
       command = "${pkgs.niri}/bin/niri-session";
-      user = gwimbly;
+      user = "Cyclonus";
     };
 
     pipewire.enable = true;
@@ -156,9 +153,7 @@
 
   hardware.bluetooth.enable = true;
   
-  environment.systemPackages = with pkgs; [
-    bluez
-  ];
+  environment.systemPackages = with pkgs; [ bluez ];
 
   nixpkgs.config.allowUnfree = true;
   
