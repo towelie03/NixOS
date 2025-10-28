@@ -11,7 +11,6 @@ in
     ../../home/niri/default.nix
     ../../home/quickshell/quickshell.nix
 
-    ../../home/editors/vscode.nix
     ../../home/editors/nixvim.nix
 
     ../../home/programs/ghostty.nix
