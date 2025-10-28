@@ -10,69 +10,76 @@ in
     "Mod+Shift+Slash" = { show-hotkey-overlay = true; };
 
     # Terminals
-    "Ctrl+Return" = { spawn = [ "alacritty" ]; hotkey-overlay-title = "Open a Terminal: alacritty"; };
-    "Ctrl+Shift+Return" = { spawn = [ "kitty" ]; hotkey-overlay-title = "Open a Terminal: kitty"; };
+    "control+Return".action = spawn apps.alacritty;
+    "control+shift+Return".action = spawn apps.kitty;
 
     # Apps
-    "Mod+B" = { spawn = [ "brave" ]; hotkey-overlay-title = "Open Browser: brave"; };
-    "Mod+E" = { spawn = [ "thunar" ]; hotkey-overlay-title = "Open File Manager: thunar"; };
+    "super+b".action = spawn apps.browser;
+    "super+e".action = spawn apps.fileManager;
 
     # Window management
-    "Mod+O" = { toggle-overview = true; repeat = false; };
-    "Mod+Q" = { close-window = true; };
+    "super+o".action = toggle-overview;
+    "super+q".action = close-window;
 
     # Workspaces
-    "Mod+1" = { focus-workspace = 1; };
-    "Mod+2" = { focus-workspace = 2; };
-    "Mod+3" = { focus-workspace = 3; };
-    "Mod+4" = { focus-workspace = 4; };
-    "Mod+5" = { focus-workspace = 5; };
-    "Mod+6" = { focus-workspace = 6; };
-    "Mod+7" = { focus-workspace = 7; };
-    "Mod+8" = { focus-workspace = 8; };
-    "Mod+9" = { focus-workspace = 9; };
+    "super+1".action = focus-workspace 1;
+    "super+2".action = focus-workspace 2;
+    "super+3".action = focus-workspace 3;
+    "super+4".action = focus-workspace 4;
+    "super+5".action = focus-workspace 5;
+    "super+6".action = focus-workspace 6;
+    "super+7".action = focus-workspace 7;
+    "super+8".action = focus-workspace 8;
+    "super+9".action = focus-workspace 9;
 
-    "Mod+Shift+1" = { move-column-to-workspace = 1; };
-    "Mod+Shift+2" = { move-column-to-workspace = 2; };
-    "Mod+Shift+3" = { move-column-to-workspace = 3; };
-    "Mod+Shift+4" = { move-column-to-workspace = 4; };
-    "Mod+Shift+5" = { move-column-to-workspace = 5; };
-    "Mod+Shift+6" = { move-column-to-workspace = 6; };
-    "Mod+Shift+7" = { move-column-to-workspace = 7; };
-    "Mod+Shift+8" = { move-column-to-workspace = 8; };
-    "Mod+Shift+9" = { move-column-to-workspace = 9; };
+    "super+shift+1".action = move-column-to-workspace 1;
+    "super+shift+2".action = move-column-to-workspace 2;
+    "super+shift+3".action = move-column-to-workspace 3;
+    "super+shift+4".action = move-column-to-workspace 4;
+    "super+shift+5".action = move-column-to-workspace 5;
+    "super+shift+6".action = move-column-to-workspace 6;
+    "super+shift+7".action = move-column-to-workspace 7;
+    "super+shift+8".action = move-column-to-workspace 8;
+    "super+shift+9".action = move-column-to-workspace 9;
 
     # Column focus/movement
-    "Mod+J" = { focus-column-left = true; };
-    "Mod+L" = { focus-column-right = true; };
-    "Mod+Shift+J" = { move-column-left = true; };
-    "Mod+Shift+L" = { move-column-right = true; };
+    "super+j".action = focus-column-left;
+    "super+l".action = focus-column-right;
+    "super+shift+j".action = move-column-left;
+    "super+shift+l".action = move-column-right;
 
     # Window focus/movement
-    "Mod+K" = { focus-window-or-workspace-down = true; };
-    "Mod+I" = { focus-window-or-workspace-up = true; };
-    "Mod+Shift+K" = { move-window-down-or-to-workspace-down = true; };
-    "Mod+Shift+I" = { move-window-up-or-to-workspace-up = true; };
+    "super+k".action = focus-window-or-workspace-down;
+    "super+i".action = focus-window-or-workspace-up;
+    "super+shift+k".action = move-window-down-or-to-workspace-down;
+    "super+shift+i".action = move-window-up-or-to-workspace-up;
 
     # Column/window sizing
-    "Mod+Alt+J" = { set-column-width = "-10%"; };
-    "Mod+Alt+L" = { set-column-width = "+10%"; };
-    "Mod+Alt+I" = { set-window-height = "-10%"; };
-    "Mod+Alt+K" = { set-window-height = "+10%"; };
+    "super+alt+j".action = set-column-width "-10%";
+    "super+alt+l".action = set-column-width "+10%";
+    "super+alt+i".action = set-window-height "-10%";
+    "super+alt+k".action = set-window-height "+10%";
 
     # Column display/mode toggles
-    "Mod+F" = { maximize-column = true; };
-    "Mod+Shift+F" = { fullscreen-window = true; };
-    "Mod+Ctrl+F" = { expand-column-to-available-width = true; };
-    "Mod+Shift+C" = { center-column = true; };
-    "Mod+Ctrl+C" = { center-visible-columns = true; };
-    "Mod+T" = { toggle-window-floating = true; };
-    "Mod+Shift+T" = { switch-focus-between-floating-and-tiling = true; };
-    "Mod+W" = { toggle-column-tabbed-display = true; };
+    "super+f".action = maximize-column;
+    "super+shift+f".action = fullscreen-window;
+    "super+control+f".action = expand-column-to-available-width;
+    "super+shift+c".action = center-column;
+    "super+ctrl+c".action = center-visible-columns;
+    "super+t".action = toggle-window-floating;
+    "super+shift+t".action = switch-focus-between-floating-and-tiling;
+    "super+w".action = toggle-column-tabbed-display;
+
+    # Screenshots
+    "super+shift+print".action = screenshot;
+    "control+print".action = screenshot-screen;
+    "alt+print".action = screenshot-window; # optional
+  };
+}
 
     # Screenshots
     #"Mod+Shift+Print" = { screenshot = true; };
-    #"Ctrl+Print" = { screenshot-screen = true; };
+    #"control+Print" = { screenshot-screen = true; };
     #"Alt+Print" = { screenshot-window = true; };
   };
 } 
