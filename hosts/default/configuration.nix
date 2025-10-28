@@ -144,7 +144,6 @@
     pipewire.alsa.support32Bit = true;
     pipewire.pulse.enable = true;
     pipewire.wireplumber.enable = true;
-    pipewire.media-session.enable = false;
 
     dbus.enable = true;
     dbus.packages = with pkgs; [ bluez ];
