@@ -38,7 +38,7 @@
     wheelNeedsPassword = false;
     extraRules = [
       {
-        users = [ "Cyclonus" ];
+        users = [ "gwimbly" ];
         keepEnv = true;
         persist = true;
       }
@@ -50,7 +50,7 @@
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
     users = {
-      "Cyclonus" = import ./home.nix;
+      "gwimbly" = import ./home.nix;
     };
   };
   
@@ -79,7 +79,7 @@
   programs.dankMaterialShell.greeter = {
       enable = true;
       compositor.name = "niri";
-      configHome = "/home/Cyclonus";
+      configHome = "/home/gwimbly";
   };
 
 
@@ -136,7 +136,7 @@
     greetd.enable = true;
     greetd.settings.default_session = {
       command = "${pkgs.niri}/bin/niri-session";
-      user = "Cyclonus";
+      user = "gwimbly";
     };
 
     pipewire.enable = true;
