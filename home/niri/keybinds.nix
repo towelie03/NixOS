@@ -71,8 +71,8 @@ in
     "Mod+W" = { toggle-column-tabbed-display = true; };
 
     # Screenshots
-    "Mod+Shift+Print" = { screenshot = true; };
-    "Ctrl+Print" = { screenshot-screen = true; };
-    "Alt+Print" = { screenshot-window = true; };
+    #"Mod+Shift+Print" = { screenshot = true; };
+    #"Ctrl+Print" = { screenshot-screen = true; };
+    #"Alt+Print" = { screenshot-window = true; };
   };
 } 
