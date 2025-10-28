@@ -11,7 +11,6 @@
     "${self}/system/xdg.nix"
     "${self}/system/environment.nix"
     "${self}/system/packages.nix"
-    "${self}/system/filesystems.nix"  
   ];
 
   nixpkgs.overlays = [
