@@ -133,47 +133,26 @@
   programs.fish.enable = true;
 
   services = {
-    # Greetd login manager
     greetd.enable = true;
     greetd.settings.default_session = {
       command = "${pkgs.niri}/bin/niri-session";
       user = "gwimbly";
     };
   
-    # PipeWire audio
-    pipewire = {
-      enable = true;
+    pipewire.enable = true;
+    pipewire.alsa.enable = true;
+    pipewire.alsa.support32Bit = true;
+    pipewire.pulse.enable = true;
+    pipewire.wireplumber.enable = true;
   
-      # ALSA support
-      alsa.enable = true;
-      alsa.support32Bit = true;
-  
-      # PulseAudio replacement
-      pulse.enable = true;
-  
-      # WirePlumber session manager (modern replacement for media-session)
-      wireplumber.enable = true;
-    };
-  
-    # DBus and Bluetooth
     dbus.enable = true;
     dbus.packages = with pkgs; [ bluez ];
   
-    hardware.bluetooth.enable = true;
-  
-    # XServer disabled (Wayland only)
-    xserver.enable = false;
-  
-    # Printing & file management
+    xserver.enable = false; # Wayland-only
+    power-profiles-daemon.enable = true;
     printing.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
-  
-    # Power profiles for laptops/desktops
-    power-profiles-daemon.enable = true;
-  
-    # Optional udev packages
-    udev.packages = [ pkgs.rwedid ];
   };
 
   xdg.portal.enable = true;
