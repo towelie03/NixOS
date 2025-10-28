@@ -2,9 +2,9 @@
 {
   programs.brave = {
     enable = true;
-  }
-    
-  # Stylix integration (if you’re using it)
+  };
+
+  # Stylix integration (optional)
   stylix.targets.brave.profileNames = [ "Cyclonus" ];
   stylix.enableReleaseChecks = false;
 }
