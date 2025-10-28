@@ -1,4 +1,10 @@
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   programs.dankMaterialShell.greeter = {
     enable = true;
     compositor.name = "niri";   # Greeter runs under Niri
