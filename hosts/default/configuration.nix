@@ -4,7 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    "${self}/system/greeter/greetd.nix"
+    inputs.dankMaterialShell.nixosModules.greeter
+    #"${self}/system/greeter/greetd.nix"
     "${self}/system/programs/steam.nix"
     "${self}/system/programs/lact.nix"
     "${self}/system/programs/stylix.nix"
