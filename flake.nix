@@ -43,33 +43,36 @@
     };
   };
 
- outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, quickshell, niri, dankMaterialShell, ... }@inputs:
-{
-  nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = { inherit self inputs; };
-    modules = [
-      ./hosts/default/configuration.nix
-      inputs.stylix.nixosModules.stylix
-      inputs.home-manager.nixosModules.default
-      #chaotic.nixosModules.default   
-      inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-      inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
-      inputs.dankMaterialShell.nixosModules.greeter
+  outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, quickshell, niri, dankMaterialShell, ... }@inputs:
+  {
+    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit self inputs; };
 
-      ({ pkgs, ... }: {
-        environment.systemPackages = [
-          (quickshell.packages.${pkgs.system}.default.override {
-            withJemalloc = true;
-            withQtSvg = true;
-            withWayland = true;
-            withPipewire = true;
-            withPam = true;
-            withHyprland = false;
-            withNiri = true;
-          })
-        ];
-      })
-    ];
+      modules = [
+        ./hosts/default/configuration.nix
+        inputs.stylix.nixosModules.stylix
+        inputs.home-manager.nixosModules.default
+        # chaotic.nixosModules.default
+
+        inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+        inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+        inputs.dankMaterialShell.nixosModules.greeter
+
+        ({ pkgs, ... }: {
+          environment.systemPackages = [
+            (quickshell.packages.${pkgs.system}.default.override {
+              withJemalloc = true;
+              withQtSvg = true;
+              withWayland = true;
+              withPipewire = true;
+              withPam = true;
+              withHyprland = false;
+              withNiri = true;
+            })
+          ];
+        })
+      ];
+    };
   };
-};
+}
