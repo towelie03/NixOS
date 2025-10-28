@@ -76,10 +76,3 @@ in
     "alt+print".action = screenshot-window; # optional
   };
 }
-
-    # Screenshots
-    #"Mod+Shift+Print" = { screenshot = true; };
-    #"control+Print" = { screenshot-screen = true; };
-    #"Alt+Print" = { screenshot-window = true; };
-  };
-} 
