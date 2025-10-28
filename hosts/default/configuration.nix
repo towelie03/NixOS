@@ -11,6 +11,7 @@
     "${self}/system/xdg.nix"
     "${self}/system/environment.nix"
     "${self}/system/packages.nix"
+    inputs.dankMaterialShell.nixosModules.greeter
   ];
 
   nixpkgs.overlays = [
@@ -146,6 +147,12 @@
     printing.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
+
+    programs.dankMaterialShell.greeter = {
+      enable = true;
+      compositor.name = "niri";
+      configHome = "/home/Cyclonus";
+    };
   };
 
   xdg.portal.enable = true;

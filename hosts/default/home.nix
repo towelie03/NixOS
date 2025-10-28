@@ -22,8 +22,8 @@ in
 
     ../../system/shell/fish.nix
     
-    inputs.dankMaterialShell.homeModules.niri
-    inputs.dankMaterialShell.nixosModules.greeter
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
