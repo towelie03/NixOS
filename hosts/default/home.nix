@@ -16,7 +16,6 @@ in
     ../../home/programs/ghostty.nix
     ../../home/programs/fastfetch.nix
     ../../home/programs/obs.nix
-    ../../home/programs/vesktop/default.nix
     ../../home/programs/brave.nix
 
     ../../system/shell/fish.nix
