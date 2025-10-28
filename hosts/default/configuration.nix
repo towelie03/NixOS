@@ -25,9 +25,9 @@
 
   users.groups.i2c = {};
 
-  users.users.Cyclonus = {
+  users.users.gwimbly = {
     isNormalUser = true;
-    description = "Cyclonus";
+    description = "gwimbly";
     shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" "plugdev" "bluetooth" "i2c" ];
   };
