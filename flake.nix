@@ -64,7 +64,6 @@
               withPipewire = true;
               withPam = true;
               withHyprland = false;
-              withNiri = true;
             })
           ];
         })
