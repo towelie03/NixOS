@@ -3,9 +3,9 @@
 let
   apps = import ./applications.nix { inherit pkgs; };
 
-in 
-{
-  programs.niri.settings.binds = {
+in {
+  programs.niri.settings.binds = with config.lib.niri.actions; {
+
     # Show Niri’s built-in hotkey overlay
     "Mod+Shift+Slash" = { show-hotkey-overlay = true; };
 
@@ -72,7 +72,7 @@ in
 
     # Screenshots
     "super+shift+print".action = screenshot;
-    "control+print".action = screenshot-screen;
-    "alt+print".action = screenshot-window; # optional
+    #"control+print".action = screenshot-screen;
+    #"alt+print".action = screenshot-window; # optional
   };
 }
