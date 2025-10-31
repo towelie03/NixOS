@@ -2,27 +2,36 @@
 
 with pkgs;
 [
+  mesa
+  xdg-desktop-portal-gnome
+  xdg-desktop-portal-gtk
+  # optional for wlr-specific portal, useful on Wayland:
+  xdg-desktop-portal-wlr
+  tlp          # Advanced power management
+  acpi         # ACPI info and battery stats
+  lm_sensors   # Monitor temperatures
+  power-profiles-daemon
+
   # Gaming
-  winetricks
-  protontricks
-  protonup
-  protonup-rs
-  protonup-qt
-  protonplus
-  lutris
-  bottles
-  mangohud
-  steamcmd
+  #winetricks
+  #protontricks
+  #protonup
+  #protonup-rs
+  #protonup-qt
+  #protonplus
+  #lutris
+  #bottles
+  #mangohud
+  #steamcmd
   steam
-  openrgb-with-all-plugins
+  #openrgb-with-all-plugins
   file-roller
   obsidian
   xfce.thunar
   adw-gtk3
-
-  # Terminal
-  #ghostty
-  #alacritty
+  font-manager
+  # music
+  feishin
 
   # TUI
   btop
@@ -54,6 +63,7 @@ with pkgs;
   mpv
   cava
   brightnessctl
+  lazygit
   superfile
   fzf
   git
@@ -62,10 +72,13 @@ with pkgs;
   lsd
   ripgrep
   bat
-  eza
   starship
+  less
+  zoxide
+  fd
 
   # Networking & containers
+  tailscale
   docker
   docker-compose
   wireshark

@@ -1,0 +1,326 @@
+environment {
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+  GDK_SCALE "1"
+  QT_QPA_PLATFORMTHEME "gtk3"
+  QT_QPA_PLATFORMTHEME_QT6 "gtk3"
+}
+
+input {
+    focus-follows-mouse
+
+    touchpad {
+        tap
+    }
+    
+    keyboard {
+      xkb{
+
+      }
+      repeat-delay 300
+      repeat-rate 50
+    }
+
+    mouse {
+    }
+
+    trackpoint {
+    }
+}
+
+ output "eDP-1" {
+      mode "1920x1080@120.030"
+      scale 1.0
+
+      transform "normal"
+
+    }
+
+layer-rule {
+    // This is for swaybg; change for other wallpaper tools.
+    // Find the right namespace by running niri msg layers.
+    match namespace="quickshell"
+    place-within-backdrop true
+    }
+
+
+layout {
+    // Set gaps around windows in logical pixels.
+    gaps 8
+    background-color "transparent"
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+
+    }
+
+    
+
+    default-column-width { proportion 0.5; }
+    focus-ring {
+      off  
+      width 4
+    }
+
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        off
+        urgent-color "#9b0000"
+    }
+
+    shadow {
+        // Uncomment the next line to enable shadows.
+        on
+
+        // By default, the shadow draws only around its window, and not behind it.
+        // Uncomment this setting to make the shadow draw behind its window.
+        //
+        // Note that niri has no way of knowing about the CSD window corner
+        // radius. It has to assume that windows have square corners, leading to
+        // shadow artifacts inside the CSD rounded corners. This setting fixes
+        // those artifacts.
+        //
+        // However, instead you may want to set prefer-no-csd and/or
+        // geometry-corner-radius. Then, niri will know the corner radius and
+        // draw the shadow correctly, without having to draw it behind the
+        // window. These will also remove client-side shadows if the window
+        // draws any.
+        //
+        // draw-behind-window true
+
+        // You can change how shadows look. The values below are in logical
+        // pixels and match the CSS box-shadow properties.
+
+        // Softness controls the shadow blur radius.
+        softness 30
+
+        // Spread expands the shadow.
+        spread 5
+
+        // Offset moves the shadow relative to the window.
+        offset x=0 y=5
+
+        // You can also change the shadow color and opacity.
+        color "#0007"
+    }
+  }
+
+prefer-no-csd
+
+overview {
+    //backdrop-color "#0E0825"
+    workspace-shadow {
+        off
+    }
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// Screenshot path
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+animations {
+    // Uncomment to turn off all animations.
+    // off
+
+    // Slow down all animations by this factor. Values below 1 speed them up instead.
+    // slowdown 3.0
+}
+
+
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    match app-id="brave"
+    open-maximized true
+    
+}
+
+window-rule {
+    match app-id="discord"
+    open-maximized true
+    open-on-workspace "chat"
+    opacity 0.90
+}
+
+window-rule {
+    match app-id="feishin"
+    open-maximized true
+    open-on-workspace "music"
+}
+
+
+
+
+
+// Example: block out two password managers from screen capture.
+// (This example rule is commented out with a "/-" in front.)
+/-window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    //match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    open-maximized true
+    block-out-from "screen-capture"
+
+}
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+
+// Required for clipboard history integration
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+
+// Recommended (must install polkit-mate before hand) for elevation prompts
+//spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+// This may be a different path on different distributions, the above is for the arch linux mate-polkit package
+
+// Starts DankShell
+//spawn-at-startup "dms" "run"
+
+// If using niri newer than 271534e115e5915231c99df287bbfe396185924d (~aug 17 2025)
+// you can add this to disable built in config load errors since dank shell provides this
+config-notification {
+    disable-failed
+}
+
+
+// Dank keybinds
+// 1. These should not be in conflict with any pre-existing keybindings
+// 2. You need to merge them with your existing config if you want to use these
+// 3. You can change the keys to whatever you want, if you prefer something different
+// 4. For the increment/decrement ones you can change the steps to whatever you like too
+binds {
+
+   Mod+Shift+Slash { show-hotkey-overlay; }
+
+   Ctrl+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+   Ctrl+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+   Mod+B hotkey-overlay-title="Open Browser: brave" { spawn "brave"; }
+   Mod+E hotkey-overlay-title="Open File Manager: thunar" { spawn "thunar"; }
+ 
+  
+   Mod+O repeat=false { toggle-overview; }
+
+   Mod+Q { close-window; }
+
+   Mod+1 { focus-workspace 1; }
+   Mod+2 { focus-workspace 2; }
+   Mod+3 { focus-workspace 3; }
+   Mod+4 { focus-workspace 4; }
+   Mod+5 { focus-workspace 5; }
+   Mod+6 { focus-workspace 6; }
+   Mod+7 { focus-workspace 7; }
+   Mod+8 { focus-workspace 8; }
+   Mod+9 { focus-workspace 9; }
+   Mod+Shift+1 { move-column-to-workspace 1; }
+   Mod+Shift+2 { move-column-to-workspace 2; }
+   Mod+Shift+3 { move-column-to-workspace 3; }
+   Mod+Shift+4 { move-column-to-workspace 4; }
+   Mod+Shift+5 { move-column-to-workspace 5; }
+   Mod+Shift+6 { move-column-to-workspace 6; }
+   Mod+Shift+7 { move-column-to-workspace 7; }
+   Mod+Shift+8 { move-column-to-workspace 8; }
+   Mod+Shift+9 { move-column-to-workspace 9; }
+
+   Mod+J     { focus-column-left; }
+   Mod+L     { focus-column-right; }
+
+   Mod+Shift+J     { move-column-left; }
+   Mod+Shift+L     { move-column-right; }
+    
+   // Alternative commands that move across workspaces when reaching
+   // the first or last window in a column.
+   Mod+K     { focus-window-or-workspace-down; }
+   Mod+I     { focus-window-or-workspace-up; }
+   Mod+Shift+K     { move-window-down-or-to-workspace-down; }
+   Mod+Shift+I     { move-window-up-or-to-workspace-up; }
+   
+   Mod+F { maximize-column; }
+   Mod+Shift+F { fullscreen-window; }
+   
+  Mod+Ctrl+F { expand-column-to-available-width; }
+  Mod+Shift+C { center-column; }
+  Mod+Ctrl+C { center-visible-columns; }
+
+  Mod+Alt+J { set-column-width "-10%"; }
+  Mod+Alt+L { set-column-width "+10%"; }
+  Mod+Alt+I { set-window-height "-10%"; }
+  Mod+Alt+K { set-window-height "+10%"; }
+
+  // Move the focused window between the floating and the tiling layout.
+  Mod+T        { toggle-window-floating; }
+  Mod+Shift+T { switch-focus-between-floating-and-tiling; }
+
+  // Toggle tabbed column display mode.
+  // Windows in this column will appear as vertical tabs,
+  // rather than stacked on top of each other.
+  Mod+W { toggle-column-tabbed-display; }
+  
+  Mod+Shift+Print { screenshot; }
+  Ctrl+Print { screenshot-screen; }
+  Alt+Print { screenshot-window; }
+
+   ALT+Space hotkey-overlay-title="Application Launcher" {
+      spawn "dms" "ipc" "call" "spotlight" "toggle";
+   }
+   Mod+V hotkey-overlay-title="Clipboard Manager" {
+      spawn "dms" "ipc" "call" "clipboard" "toggle";
+   }
+   Mod+M hotkey-overlay-title="Task Manager" {
+      spawn "dms" "ipc" "call" "processlist" "toggle";
+   }
+   Mod+N hotkey-overlay-title="Notification Center" {
+      spawn "dms" "ipc" "call" "notifications" "toggle";
+   }
+   Mod+Comma hotkey-overlay-title="Settings" {
+      spawn "dms" "ipc" "call" "settings" "toggle";
+   }
+   Mod+P hotkey-overlay-title="Notepad" {
+      spawn "dms" "ipc" "call" "notepad" "toggle";
+   }
+   Super+Alt+L hotkey-overlay-title="Lock Screen" {
+      spawn "dms" "ipc" "call" "lock" "lock";
+   }
+   Mod+X hotkey-overlay-title="Power Menu" {
+      spawn "dms" "ipc" "call" "powermenu" "toggle";
+   }
+   Mod+C hotkey-overlay-title="Control Center" {
+      spawn "dms" "ipc" "call" "control-center" "toggle";
+   }
+   XF86AudioRaiseVolume allow-when-locked=true {
+      spawn "dms" "ipc" "call" "audio" "increment" "3";
+   }
+   XF86AudioLowerVolume allow-when-locked=true {
+      spawn "dms" "ipc" "call" "audio" "decrement" "3";
+   }
+   XF86AudioMute allow-when-locked=true {
+      spawn "dms" "ipc" "call" "audio" "mute";
+   }
+   XF86AudioMicMute allow-when-locked=true {
+      spawn "dms" "ipc" "call" "audio" "micmute";
+   }
+   XF86MonBrightnessUp allow-when-locked=true {
+      spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+   }
+   // You can override the default device for e.g. keyboards by adding the device name to the last param
+   XF86MonBrightnessDown allow-when-locked=true {
+      spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+   }
+   // Night mode toggle
+   Mod+Shift+N allow-when-locked=true {
+      spawn "dms" "ipc" "call" "night" "toggle";
+   }
+ }

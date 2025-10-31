@@ -8,8 +8,6 @@
     nur.url = "github:nix-community/NUR";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    matugen.url = "github:InioX/matugen";
-
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,33 +39,26 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
 
-  outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, quickshell, niri, dankMaterialShell, ... }@inputs:
-  {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit self inputs; };
-
-      modules = [
-        ./hosts/default/configuration.nix
-        inputs.stylix.nixosModules.stylix
-        inputs.home-manager.nixosModules.default
-        # chaotic.nixosModules.default
-
-        ({ pkgs, ... }: {
-          environment.systemPackages = [
-            (quickshell.packages.${pkgs.system}.default.override {
-              withJemalloc = true;
-              withQtSvg = true;
-              withWayland = true;
-              withPipewire = true;
-              withPam = true;
-              withHyprland = false;
-            })
-          ];
-        })
-      ];
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
+  outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, niri, dankMaterialShell, nixcord, ... }@inputs:
+    {
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit self inputs; };
+
+        modules = [
+          ./hosts/default/configuration.nix
+          inputs.stylix.nixosModules.stylix
+          inputs.home-manager.nixosModules.default
+          # inputs.chaotic.nixosModules.default
+        ];
+      };
+    };
 }
+

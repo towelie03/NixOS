@@ -1,19 +1,18 @@
 { config, pkgs, inputs, lib, self, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.dankMaterialShell.nixosModules.greeter
-    #"${self}/system/greeter/greetd.nix"
+    #"${self}/system/greeter/greeter.nix"
     "${self}/system/programs/steam.nix"
     "${self}/system/programs/lact.nix"
-    "${self}/system/programs/stylix.nix"
-    "${self}/system/xdg.nix"
     "${self}/system/environment.nix"
     "${self}/system/packages.nix"
   ];
 
+  time.timeZone = "America/Vancouver";
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (final: prev: {
       nur = import inputs.nur {
@@ -24,14 +23,18 @@
   ];
 
   users.groups.i2c = {};
+  users.groups.wireshark = {};
 
   users.users.gwimbly = {
     isNormalUser = true;
     description = "gwimbly";
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" "plugdev" "bluetooth" "i2c" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" "plugdev" "bluetooth" "i2c" "wireshark" ];
   };
-  
+
+  #services.greetd.enable = true;
+  #services.greetd.settings.default_session.user = "gwimbly";
+
   security.sudo.enable = false;
   security.doas = {
     enable = true;
@@ -46,14 +49,12 @@
   };
 
   home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
     users = {
       "gwimbly" = import ./home.nix;
     };
   };
-  
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts._0xproto
@@ -64,8 +65,10 @@
     noto-fonts-cjk-serif
     material-symbols
     material-icons
-    roboto
-    fira-sans
+    nerd-fonts.ubuntu
+    nerd-fonts.mononoki 
+    nerd-fonts.fira-code
+    nerd-fonts.roboto-mono
   ];
 
   boot = {
@@ -75,13 +78,6 @@
     kernelModules = [ "i2c-dev" ];
     initrd.availableKernelModules = [ "i2c-dev" ];
   };
-  
-  programs.dankMaterialShell.greeter = {
-      enable = true;
-      compositor.name = "niri";
-      configHome = "/home/gwimbly";
-  };
-
 
   services.udev.packages = [ pkgs.rwedid ];
 
@@ -130,50 +126,49 @@
   };
 
   programs.fish.enable = true;
+  programs.wireshark = {
+    enable          = true;
+    usbmon.enable   = true;
+  };
+  programs.dconf.enable = true;
 
   services = {
-    greetd.enable = true;
-    greetd.settings.default_session = {
-      command = "${pkgs.niri}/bin/niri-session";
-      user = "gwimbly";
-    };
-  
     pipewire.enable = true;
     pipewire.alsa.enable = true;
     pipewire.alsa.support32Bit = true;
     pipewire.pulse.enable = true;
     pipewire.wireplumber.enable = true;
-  
+
+    openssh.enable = true;
+    openssh.permitRootLogin = "no";
+    openssh.passwordAuthentication = true;
+
+    tailscale.enable = true;
+    tailscale.useRoutingFeatures = "client";
+
     dbus.enable = true;
     dbus.packages = with pkgs; [ bluez ];
-  
+
     xserver.enable = false; # Wayland-only
     power-profiles-daemon.enable = true;
+    upower.enable = true;
+
     printing.enable = true;
     gvfs.enable = true;
     tumbler.enable = true;
   };
 
-  xdg.portal.enable = true;
-
   hardware.bluetooth.enable = true;
-  
-  environment.systemPackages = with pkgs; [ bluez ];
 
-  nixpkgs.config.allowUnfree = true;
-  
+  # <- IMPORTANT: add portal packages here so they are present in the system profile
+  environment.systemPackages = with pkgs; [
+    bluez
+    tlp
+    lm_sensors
+    openssl
+  ];
+
   home-manager.backupFileExtension = "backup";
-
   system.stateVersion = "25.05";
-
-  system.activationScripts.logRebuildTime = {
-    text = ''
-      LOG_FILE="/var/log/nixos-rebuild-log.json"
-      TIMESTAMP=$(date "+%d/%m")
-      GENERATION=$(readlink /nix/var/nix/profiles/system | grep -o '[0-9]\+')
-
-      echo "{\"last_rebuild\": \"$TIMESTAMP\", \"generation\": $GENERATION}" > "$LOG_FILE"
-      chmod 644 "$LOG_FILE"
-    '';
-  };
 }
+

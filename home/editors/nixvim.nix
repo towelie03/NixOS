@@ -1,62 +1,69 @@
 { config, lib, pkgs, ... }:
-
 {
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
     # Basic options
     opts = {
+      updatetime = 100; # Faster completion
       number = true;
       relativenumber = true;
       shiftwidth = 2;
       tabstop = 2;
       expandtab = true;
       smartindent = true;
+      autoindent = true;
       wrap = false;
       swapfile = false;
       termguicolors = true;
+      undofile = true;
+      ignorecase = true;
+      incsearch = true;
+      smartcase = true;
     };
-
+    
     # Plugins
     plugins = {
-      lualine = {
-        enable = true;
-      };
-      web-devicons = {
-        enable = true;
-      };
+      lualine.enable = true;
+      web-devicons.enable = true;
 
       nvim-tree = {
         enable = true;
-        openOnSetup = true;
-        disableNetrw = true;
-        hijackNetrw = true;
-        updateFocusedFile.enable = true;
-        view = {
-          width = 30;
-          side = "left";
-        };
-        renderer = {
-          highlightGit = true;
-          icons.show.file = true;
-          icons.show.folder = true;
+        settings = {
+          disable_netrw = true;
+          hijack_netrw = true;
+
+          update_focused_file.enable = true;
+
+          view = {
+            width = 30;
+            side = "left";
+          };
+
+          renderer = {
+            highlight_git = true;
+            icons = {
+              show = {
+                file = true;
+                folder = true;
+              };
+            };
+          };
         };
       };
 
-      telescope = {
-        enable = true;
-      };
+      telescope.enable = true;
+      treesitter.enable = true;
 
-      treesitter = {
+      presence = {
         enable = true;
-      };
-      
-      presence-nvim = {
-        enable = true;
-        enableLineNumber = true;
-        autoUpdate = true;
+        settings = {
+          enable_line_number = true;
+          auto_update = true;
+        };
       };
 
       cmp.enable = true;
@@ -75,7 +82,7 @@
           nil_ls = {
             enable = true;
             settings = {
-              formatting.command = ["nixpkgs-fmt"];
+              formatting.command = [ "nixpkgs-fmt" ];
             };
           };
         };
@@ -84,7 +91,7 @@
 
     globals = {
       mapleader = " ";      # Use space as leader
-      maplocalleader = " "; # Optional: set local leader too
+      maplocalleader = " "; # Optional
     };
 
     # Key mappings
@@ -100,15 +107,16 @@
         options.desc = "Live grep";
       }
       {
-        key = "<leader>w";
-        action = "<cmd>NvimTreeToggle<cr>";
-        options.desc = "Toggle file explorer";
+        key = "<C-n>";
+        action = "<CMD>NvimTreeToggle<CR>";
+        options.desc = "Toggle NvimTree";
       }
       {
-        key = "<leader>n";
+        key = "<Ctrl>w";
         action = "<cmd>NvimTreeFindFile<cr>";
         options.desc = "Find current file in explorer";
       }
     ];
   };
 }
+
