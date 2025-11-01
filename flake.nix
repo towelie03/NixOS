@@ -48,12 +48,12 @@
 
   outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, niri, dankMaterialShell, nixcord, ... }@inputs:
     {
-      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.Cyclonus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit self inputs; };
 
         modules = [
-          ./hosts/default/configuration.nix
+          ./hosts/Cyclonus/configuration.nix
           inputs.stylix.nixosModules.stylix
           inputs.home-manager.nixosModules.default
           # inputs.chaotic.nixosModules.default

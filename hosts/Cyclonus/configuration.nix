@@ -60,7 +60,7 @@
     nerd-fonts._0xproto
     nerd-fonts.droid-sans-mono
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     material-symbols
@@ -130,7 +130,7 @@
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/gwimbly/nixos-config"; # sets NH_OS_FLAKE variable for you
+    flake = "/home/gwimbly/nixos-config/"; # sets NH_OS_FLAKE variable for you
   };
 
   services = {
