@@ -90,12 +90,6 @@
     sudo = "doas";
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 5d";
-  };
-
   networking = {
     hostName = "Cyclonus";
     wireless.enable = false;
@@ -132,6 +126,12 @@
   };
   programs.dconf.enable = true;
   programs.ssh.startAgent = true;
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/gwimbly/nixos-config"; # sets NH_OS_FLAKE variable for you
+  };
 
   services = {
     pipewire.enable = true;
@@ -139,10 +139,6 @@
     pipewire.alsa.support32Bit = true;
     pipewire.pulse.enable = true;
     pipewire.wireplumber.enable = true;
-
-    openssh.enable = true;
-    openssh.permitRootLogin = "no";
-    openssh.passwordAuthentication = true;
 
     tailscale.enable = true;
     tailscale.useRoutingFeatures = "client";
@@ -159,6 +155,12 @@
     tumbler.enable = true;
   };
 
+  services.openssh.settings = {
+    PermitRootLogin = "no";
+    PasswordAuthentication = "no";
+  };
+
+
   hardware.bluetooth.enable = true;
 
   # <- IMPORTANT: add portal packages here so they are present in the system profile
@@ -167,6 +169,7 @@
     tlp
     lm_sensors
     openssl
+    nh
   ];
 
   home-manager.backupFileExtension = "backup";
