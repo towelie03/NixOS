@@ -6,7 +6,7 @@
     nixvim.url = "github:nix-community/nixvim";
     home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    #chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     stylix = {
       url = "github:danth/stylix";
@@ -46,7 +46,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, chaotic, nixvim, nur, stylix, niri, dankMaterialShell, nixcord, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixvim, nur, stylix, niri, dankMaterialShell, nixcord, ... }@inputs:
     {
       nixosConfigurations.Cyclonus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -56,7 +56,6 @@
           ./hosts/Cyclonus/configuration.nix
           inputs.stylix.nixosModules.stylix
           inputs.home-manager.nixosModules.default
-          # inputs.chaotic.nixosModules.default
         ];
       };
     };

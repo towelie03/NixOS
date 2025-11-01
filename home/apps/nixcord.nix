@@ -3,25 +3,34 @@
 {
   programs.nixcord = {
     enable = true;
-    vesktop.enable = true;
-    #quickCss = "some CSS";
-    discord.enable = false;
+
+    # enable desktop client (vesktop)
+    vesktop.enable = false;
+
+    # disable browser-discord (redundant but fine)
+    discord.enable = true;
 
     config = {
       useQuickCss = true;
       themeLinks = [];
       frameless = true;
-      # Don't add `plugins` here — nixcord module doesn't support it
     };
 
     extraConfig = {
       plugins = {
-        hideAttachments = { enable = true; };
+        hideAttachments = {
+          enable = true;
+        };
+
         ignoreActivities = {
           enable = true;
           ignorePlaying = true;
           ignoreWatching = true;
-          ignoredActivities = ["someActivity"];
+          ignoredActivities = [
+            "Playing"
+            "Watching"
+            "Competing"
+          ];
         };
       };
     };
