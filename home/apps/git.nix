@@ -1,12 +1,8 @@
-{
-  pkgs,
-  ...
-}: {
+{ pkgs, ... }: {
   programs.git = {
     enable = true;
 
     signing = {
-      # Remove this key line when using SSH for signing
       signByDefault = true;
     };
 
@@ -16,7 +12,9 @@
       init.defaultBranch = "main";
 
       commit.gpgSign = true;
-      gpg.format = "ssh"; # use SSH for signing
+      gpg.format = "ssh";
+
+      user.signingkey = "~/.ssh/id_ed25519.pub";
     };
   };
 }

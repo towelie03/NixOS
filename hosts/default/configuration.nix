@@ -131,6 +131,7 @@
     usbmon.enable   = true;
   };
   programs.dconf.enable = true;
+  programs.ssh.startAgent = true;
 
   services = {
     pipewire.enable = true;

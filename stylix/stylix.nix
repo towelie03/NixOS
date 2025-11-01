@@ -4,6 +4,8 @@
   stylix.autoEnable = true;
   stylix.opacity.terminal = 0.8;
   stylix.targets.nixcord.enable = false;
+
+  stylix.targets.nixvim.enable = true;
   stylix.targets.nixos-icons.enable = true;
   #stylix.base16Scheme = toString (builtins.path {
     #path = ../../assets/themes/base-16/tokyo-night-dark.yaml;
@@ -26,5 +28,10 @@
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrainsMono Nerd Font";
     };  
+  };
+  stylix.cursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 14;
   };
 }

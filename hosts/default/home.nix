@@ -38,7 +38,10 @@ in
 
   home.packages = allPackages;
 
-  xdg.portal.enable = true;
+  xdg = {
+    portal.enable = true;
+    portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
 
   home.stateVersion = "25.05";
 
